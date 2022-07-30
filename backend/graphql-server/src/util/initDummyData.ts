@@ -1,15 +1,18 @@
 import { DataSource } from 'typeorm';
 
-import { Chat } from '../entities/Chat';
-import { Message } from '../entities/Message';
-import { User } from '../entities/User';
+import { Chat } from '../data/entities/Chat';
+import { Message } from '../data/entities/Message';
+import { User } from '../data/entities/User';
 
 const initDummyData = async (dataSource: DataSource) => {
   
   // Create or find User
   const userRepository = dataSource.getRepository(User);
   const email = 'johndoe@hotmail.com';
-  let user = await userRepository.findOneBy({ email });
+  let user = await userRepository.findOne({
+    where: { email },
+    relations: { chats: true }
+   });
   if (!user) {
     user = await userRepository.save(Object.assign(new User(), {
       email,
@@ -32,7 +35,7 @@ const initDummyData = async (dataSource: DataSource) => {
   }
 
   // Add user to chat
-  if (!(user.chats || []).some(_chat => _chat.id !== chat?.id)) {
+  if (!(user.chats || []).some(_chat => _chat.id === chat?.id)) {
     await dataSource
       .createQueryBuilder()
       .relation(Chat, "users")

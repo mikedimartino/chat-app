@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import * as Express from 'express';
 import { buildSchema, Query, Resolver } from 'type-graphql';
 
-import dataSource from './dataSource';
+import dataSource from './data/dataSource';
 import initDummyData from './util/initDummyData';
 
 @Resolver()
