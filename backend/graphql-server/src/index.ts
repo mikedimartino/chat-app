@@ -3,6 +3,9 @@ import { ApolloServer } from 'apollo-server-express';
 import * as Express from 'express';
 import { buildSchema, Query, Resolver } from 'type-graphql';
 
+import dataSource from './dataSource';
+import initDummyData from './util/initDummyData';
+
 @Resolver()
 class HelloResolver {
   @Query(() => String)
@@ -11,7 +14,12 @@ class HelloResolver {
   }
 }
 
+
 const main = async () => {
+  await dataSource.initialize();
+
+  await initDummyData(dataSource); // TODO: Delete
+
   const schema = await buildSchema({
     resolvers: [HelloResolver]
   })

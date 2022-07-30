@@ -1,9 +1,6 @@
 # Overview
 Run `docker-compose up` to start up the backend.
 
-# Postgres
-- The `sql/create_tables.sql` script run on start up and creates the database tables if they don't already exist.
-
 # pgAdmin
 - Run docker-compose up and go to localhost:5050 to view the pgAdmin console.
   - Refer to the values in the docker-compose file to see the email and password values to log in.
@@ -14,8 +11,3 @@ Run `docker-compose up` to start up the backend.
     - Hostname/address: pg_container
     - Username: root
     - Password: root
-
-
-
-# Useful Links
-- [Creating and filling a Postgres DB with Docker compose](https://levelup.gitconnected.com/creating-and-filling-a-postgres-db-with-docker-compose-e1607f6f882f)
