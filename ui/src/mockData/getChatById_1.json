@@ -1,0 +1,70 @@
+{
+  "id": "1",
+  "name": null,
+  "messages": [
+    {
+      "id": "111",
+      "content": "Hey, how's it going?",
+      "author": {
+        "id": "277",
+        "name": "Gustav"
+      }
+    },
+    {
+      "id": "222",
+      "content": "Pretty good, how bout you?",
+      "author": {
+        "id": "5433",
+        "name": "Jamal"
+      }
+    },
+    {
+      "id": "112",
+      "content": "I'm doing okay.",
+      "author": {
+        "id": "277",
+        "name": "Gustav"
+      }
+    },
+    {
+      "id": "113",
+      "content": "Didn't sleep well last night.",
+      "author": {
+        "id": "277",
+        "name": "Gustav"
+      }
+    },
+    {
+      "id": "114",
+      "content": "Need to get some coffee or something.",
+      "author": {
+        "id": "277",
+        "name": "Gustav"
+      }
+    },
+    {
+      "id": "223",
+      "content": "Ah I feel you.",
+      "author": {
+        "id": "5433",
+        "name": "Jamal"
+      }
+    },
+    {
+      "id": "224",
+      "content": "Any plans tonight?",
+      "author": {
+        "id": "5433",
+        "name": "Jamal"
+      }
+    },
+    {
+      "id": "115",
+      "content": "Nah. Probably just gonna take it easy.",
+      "author": {
+        "id": "277",
+        "name": "Gustav"
+      }
+    }
+  ]
+}
