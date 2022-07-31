@@ -20,23 +20,23 @@ export class Chat {
   id: number;
 
   @Column({ nullable: true })
-  @Field()
+  @Field({ nullable: true })
   title: string;
 
   @CreateDateColumn()
   @Field()
   createDate: Date;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'creator_id' })
   @Field(() => User)
   creator: User;
 
-  @OneToMany(() => Message, (message) => message.chat)
+  @OneToMany(() => Message, (message) => message.chat, { onDelete: 'CASCADE' })
   @Field(() => Message)
   messages: Message;
 
-  @ManyToMany(() => User, (user) => user.chats)
+  @ManyToMany(() => User, (user) => user.chats, { onDelete: 'CASCADE' })
   @Field(() => [User])
   users: User[];
 }

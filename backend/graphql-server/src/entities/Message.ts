@@ -25,12 +25,12 @@ export class Message {
   @Field()
   createDate: Date;
 
-  @ManyToOne(() => User, (user) => user.messages)
+  @ManyToOne(() => User, (user) => user.messages, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'creator_id' })
   @Field(() => User)
   creator: User;
 
-  @ManyToOne(() => Chat, (chat) => chat.messages)
+  @ManyToOne(() => Chat, (chat) => chat.messages, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'chat_id' })
   @Field(() => Chat)
   chat: Chat;

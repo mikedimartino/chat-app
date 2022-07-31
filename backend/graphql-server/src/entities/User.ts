@@ -11,7 +11,7 @@ export class User {
   @Field()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   @Field()
   email: string;
 
@@ -26,15 +26,15 @@ export class User {
   @Field()
   lastName: string;
 
-  @Column()
+  @Column({ default: false })
   @Field()
   isAdmin: boolean;
 
-  @OneToMany(() => Message, (message) => message.creator)
+  @OneToMany(() => Message, (message) => message.creator, { onDelete: 'CASCADE' })
   @Field(() => [Message])
   messages: Message[];
 
-  @ManyToMany(() => Chat, (chat) => chat.users)
+  @ManyToMany(() => Chat, (chat) => chat.users, { onDelete: 'CASCADE' })
   @JoinTable({ name: 'user_chat' })
   @Field(() => [Chat])
   chats: Chat[];

@@ -1,29 +1,49 @@
-import { FieldResolver, Query, Resolver, Root } from 'type-graphql';
+import { Arg, FieldResolver, Mutation, Query, Resolver, Root } from 'type-graphql';
 
-import dataSource from '../dataSource';
 import { Chat, Message, User } from '../entities';
+import BaseResolver from './BaseResolver';
+import CreateUserInput from '../inputs/CreateUserInput';
 
 @Resolver(() => User)
-class UserResolver {
-  // TODO: Dependency injection
+class UserResolver extends BaseResolver {
+  @Query(() => [User])
+  async getUsers() {
+    return await this.userRepository.find();
+  }
 
-  @Query(() => [User], { name: 'getAllUser' })
-  async getAllUsers() {
-    const userRepository = dataSource.getRepository(User);
-    return await userRepository.find();
+  @Query(() => User)
+  async getUserById(@Arg('id') id: number) {
+    return await this.userRepository.findOneBy({ id });
+  }
+
+  @Mutation(() => User)
+  async createUser(@Arg('input') user: CreateUserInput) {
+    const result = await this.userRepository.insert(user);
+    return <User>{
+      ...user,
+      ...result.generatedMaps[0],
+    };
+  }
+
+  @Mutation(() => Number)
+  async deleteUser(@Arg('id') id: number) {
+    await this.userRepository.delete({ id });
+    return id;
   }
 
   @FieldResolver(() => [Message])
   async messages(@Root() user: User) {
-    const messageRepository = dataSource.getRepository(Message);
-    const messages = await messageRepository.find({ where: { creator: user } });
-    return messages;
+    return await this.messageRepository.find({ where: { creator: user } });
   }
 
   @FieldResolver(() => [Chat])
-  async chats() {
-    // TODO: Implement
-    return [];
+  async chats(@Root() user: User) {
+    const dbUser = await this.userRepository.findOne({
+      where: { id: user.id },
+      relations: { chats: true },
+      select: { chats: true },
+    });
+    return dbUser?.chats || [];
   }
 }
 
