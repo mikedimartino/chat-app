@@ -1,19 +1,12 @@
 import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server-express';
 import * as Express from 'express';
-import { buildSchema, Query, Resolver } from 'type-graphql';
+import { buildSchema } from 'type-graphql';
 
 import dataSource from './dataSource';
 import initDummyData from './util/initDummyData';
 import UserResolver from './resolvers/UserResolver';
-
-@Resolver()
-class HelloResolver {
-  @Query(() => String)
-  async hello() {
-    return 'Hello World!';
-  }
-}
+import ChatResolver from './resolvers/ChatResolver';
 
 const main = async () => {
   await dataSource.initialize();
@@ -21,7 +14,7 @@ const main = async () => {
   await initDummyData(dataSource); // TODO: Delete
 
   const schema = await buildSchema({
-    resolvers: [HelloResolver, UserResolver],
+    resolvers: [ChatResolver, UserResolver],
   })
 
   const apolloServer = new ApolloServer({ schema });

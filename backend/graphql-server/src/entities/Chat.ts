@@ -33,7 +33,7 @@ export class Chat {
   creator: User;
 
   @OneToMany(() => Message, (message) => message.chat, { onDelete: 'CASCADE' })
-  @Field(() => Message)
+  @Field(() => [Message])
   messages: Message;
 
   @ManyToMany(() => User, (user) => user.chats, { onDelete: 'CASCADE' })
