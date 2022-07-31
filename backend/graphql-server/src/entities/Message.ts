@@ -1,32 +1,37 @@
+import { Field, ObjectType } from 'type-graphql';
 import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  ManyToOne
+  ManyToOne,
 } from 'typeorm';
 
-import { Chat } from './Chat';
-import { User } from './User';
+import { Chat, User } from '.';
 
 @Entity()
+@ObjectType()
 export class Message {
   @PrimaryGeneratedColumn()
+  @Field()
   id: number;
 
   @Column()
+  @Field()
   content: string;
 
   @CreateDateColumn()
+  @Field()
   createDate: Date;
 
-  @OneToOne(() => User)
+  @ManyToOne(() => User, (user) => user.messages)
   @JoinColumn({ name: 'creator_id' })
+  @Field(() => User)
   creator: User;
 
   @ManyToOne(() => Chat, (chat) => chat.messages)
   @JoinColumn({ name: 'chat_id' })
+  @Field(() => Chat)
   chat: Chat;
 }

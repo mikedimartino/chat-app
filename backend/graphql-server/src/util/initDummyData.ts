@@ -1,8 +1,6 @@
 import { DataSource } from 'typeorm';
 
-import { Chat } from '../data/entities/Chat';
-import { Message } from '../data/entities/Message';
-import { User } from '../data/entities/User';
+import { Chat, Message, User } from '../entities';
 
 const initDummyData = async (dataSource: DataSource) => {
   
