@@ -5,6 +5,8 @@ import BaseResolver from './BaseResolver';
 
 @Resolver()
 class UserChatResolver extends BaseResolver {
+  // TODO: Add validation to the below mutations, only an admin can add/remove OTHER users from chat.
+
   @Mutation(() => Boolean)
   async addUserToChat(
     @Arg('userId') userId: number,

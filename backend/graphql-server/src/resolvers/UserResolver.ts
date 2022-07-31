@@ -18,6 +18,7 @@ class UserResolver extends BaseResolver {
 
   @Mutation(() => User)
   async createUser(@Arg('input') user: CreateUserInput) {
+    // TODO: Hash user password
     const result = await this.userRepository.insert(user);
     return <User>{
       ...user,
