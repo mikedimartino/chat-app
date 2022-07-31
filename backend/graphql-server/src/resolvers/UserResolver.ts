@@ -41,7 +41,6 @@ class UserResolver extends BaseResolver {
     const dbUser = await this.userRepository.findOne({
       where: { id: user.id },
       relations: { chats: true },
-      select: { chats: true },
     });
     return dbUser?.chats || [];
   }

@@ -7,6 +7,7 @@ import dataSource from './dataSource';
 import initDummyData from './util/initDummyData';
 import UserResolver from './resolvers/UserResolver';
 import ChatResolver from './resolvers/ChatResolver';
+import MessageResolver from './resolvers/MessageResolver';
 
 const main = async () => {
   await dataSource.initialize();
@@ -14,7 +15,7 @@ const main = async () => {
   await initDummyData(dataSource); // TODO: Delete
 
   const schema = await buildSchema({
-    resolvers: [ChatResolver, UserResolver],
+    resolvers: [ChatResolver, MessageResolver, UserResolver],
   })
 
   const apolloServer = new ApolloServer({ schema });
